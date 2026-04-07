@@ -1,4 +1,29 @@
+import { useState, useRef, useEffect } from "react";
+
 export default function MobileWeddingInvitation() {
+  const audioRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
+  const [started, setStarted] = useState(false);
+
+  const toggleMusic = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (playing) {
+      audio.pause();
+      setPlaying(false);
+    } else {
+      audio.play();
+      setPlaying(true);
+      setStarted(true);
+    }
+  };
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.volume = 0.5;
+  }, []);
+
   const wedding = {
     groom: "한덕길",
     bride: "문지원",
@@ -31,6 +56,42 @@ export default function MobileWeddingInvitation() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-rose-50 via-white to-stone-50 text-neutral-800">
+      <audio ref={audioRef} src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" loop />
+
+      {/* 음악 재생/정지 버튼 */}
+      <button
+        onClick={toggleMusic}
+        className="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-white/80 backdrop-blur shadow-lg border border-rose-100 transition-transform active:scale-95"
+        aria-label="음악 재생/정지"
+      >
+        {playing ? (
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-rose-400" viewBox="0 0 24 24" fill="currentColor">
+            <rect x="6" y="4" width="4" height="16" rx="1" />
+            <rect x="14" y="4" width="4" height="16" rx="1" />
+          </svg>
+        ) : (
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-rose-400" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9 4.804A1 1 0 0 0 7.382 4H7a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h.382A1 1 0 0 0 9 19.196l9.443-7a1 1 0 0 0 0-1.392L9 4.804z" />
+          </svg>
+        )}
+      </button>
+
+      {/* 시작 안내 오버레이 */}
+      {!started && (
+        <div
+          onClick={toggleMusic}
+          className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm cursor-pointer"
+        >
+          <div className="flex flex-col items-center gap-4 rounded-3xl bg-white/90 px-10 py-8 shadow-xl">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-rose-400" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 19V6l12-3v13M9 19c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm12-3c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zM9 6l12-3" stroke="currentColor" strokeWidth="0" />
+              <path d="M12 3v10.55A4 4 0 1 0 14 17V7l6-1.5V3L12 3z" />
+            </svg>
+            <p className="text-base font-medium text-neutral-700">터치하여 청첩장 열기</p>
+            <p className="text-xs text-neutral-400">배경음악이 함께 재생됩니다</p>
+          </div>
+        </div>
+      )}
       <div className="mx-auto max-w-md px-4 py-6">
         <section className={`${card} overflow-hidden`}>
           <div className="relative h-[520px]">
