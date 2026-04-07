@@ -4,6 +4,22 @@ export default function MobileWeddingInvitation() {
   const audioRef = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [started, setStarted] = useState(false);
+  const [lightbox, setLightbox] = useState(null); // 현재 열린 사진 인덱스
+  const touchStartX = useRef(null);
+
+  const openLightbox = (index) => setLightbox(index);
+  const closeLightbox = () => setLightbox(null);
+  const prevPhoto = () => setLightbox((i) => (i - 1 + wedding.gallery.length) % wedding.gallery.length);
+  const nextPhoto = () => setLightbox((i) => (i + 1) % wedding.gallery.length);
+
+  const onTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+  const onTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (diff > 50) nextPhoto();
+    else if (diff < -50) prevPhoto();
+    touchStartX.current = null;
+  };
 
   const toggleMusic = () => {
     const audio = audioRef.current;
@@ -142,11 +158,74 @@ export default function MobileWeddingInvitation() {
                 key={index}
                 src={image}
                 alt={`gallery-${index}`}
-                className={`${index === 0 ? "col-span-2 h-56" : "h-40"} w-full rounded-2xl object-cover`}
+                onClick={() => openLightbox(index)}
+                className={`${index === 0 ? "col-span-2 h-56" : "h-40"} w-full rounded-2xl object-cover cursor-pointer active:opacity-80 transition-opacity`}
               />
             ))}
           </div>
         </section>
+
+        {/* 라이트박스 */}
+        {lightbox !== null && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
+            {/* 닫기 버튼 */}
+            <button
+              onClick={closeLightbox}
+              className="absolute top-5 right-5 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* 사진 번호 */}
+            <p className="absolute top-6 left-0 right-0 text-center text-xs text-white/60">
+              {lightbox + 1} / {wedding.gallery.length}
+            </p>
+
+            {/* 이전 버튼 */}
+            <button
+              onClick={prevPhoto}
+              className="absolute left-3 flex h-11 w-11 items-center justify-center rounded-full bg-white/20 text-white"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            {/* 사진 */}
+            <img
+              src={wedding.gallery[lightbox]}
+              alt={`gallery-${lightbox}`}
+              className="max-h-[85vh] max-w-[85vw] rounded-2xl object-contain"
+            />
+
+            {/* 다음 버튼 */}
+            <button
+              onClick={nextPhoto}
+              className="absolute right-3 flex h-11 w-11 items-center justify-center rounded-full bg-white/20 text-white"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            {/* 하단 점 인디케이터 */}
+            <div className="absolute bottom-6 flex gap-2">
+              {wedding.gallery.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setLightbox(i)}
+                  className={`h-1.5 rounded-full transition-all ${i === lightbox ? "w-5 bg-white" : "w-1.5 bg-white/40"}`}
+                />
+              ))}
+            </div>
+          </div>
+        )}
 
         <section className={`${card} mt-4 p-7`}>
           <p className={sectionTitle}>Location</p>
