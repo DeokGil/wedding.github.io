@@ -56,7 +56,7 @@ export default function MobileWeddingInvitation() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-rose-50 via-white to-stone-50 text-neutral-800">
-      <audio ref={audioRef} src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" loop />
+      <audio ref={audioRef} src="/music.mp3" loop />
 
       {/* 음악 재생/정지 버튼 */}
       <button
