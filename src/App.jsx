@@ -19,8 +19,8 @@ export default function MobileWeddingInvitation() {
       bride: "신부측 계좌 110222333344 신한은행 문지원"
     },
     contacts: {
-      groom: "010-2222-3333",
-      bride: "010-2222-3333"
+      groom: "010-3205-1111",
+      bride: "010-4561-7897"
     },
     mapLink: "https://maps.google.com/?q=%EB%8D%94%EC%B1%84%ED%94%8C%20%EC%95%B3%20%EC%B2%AD%EB%8B%B4",
     kakaoMapLink: "https://map.kakao.com/",
