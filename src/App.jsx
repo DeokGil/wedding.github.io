@@ -3,7 +3,7 @@ export default function MobileWeddingInvitation() {
     groom: "한덕길",
     bride: "문지원",
     date: "2027년 10월 1일 금요일 오후 12시 30분",
-    venue: "시그니처 호텔",
+    venue: "웨딩시그니처",
     address: "서울 마포구 양화로 87",
     message:
       "저희 두 사람이 사랑과 믿음으로 한 길을 걸어가려 합니다. 소중한 분들을 모시고 기쁨의 순간을 함께 나누고 싶습니다. 바쁘시더라도 오셔서 축복해 주시면 더없는 기쁨으로 간직하겠습니다. 감사합니다.",
@@ -22,9 +22,8 @@ export default function MobileWeddingInvitation() {
       groom: "010-3205-1111",
       bride: "010-4561-7897"
     },
-    mapLink: "https://maps.google.com/?q=%EB%8D%94%EC%B1%84%ED%94%8C%20%EC%95%B3%20%EC%B2%AD%EB%8B%B4",
-    kakaoMapLink: "https://map.kakao.com/",
-    naverMapLink: "https://map.naver.com/"
+    kakaoMapLink: "https://map.kakao.com/link/search/%EC%9B%A8%EB%94%A9%EC%8B%9C%EA%B7%B8%EB%8B%88%EC%B2%98",
+    naverMapLink: "https://map.naver.com/v5/search/%EC%9B%A8%EB%94%A9%EC%8B%9C%EA%B7%B8%EB%8B%88%EC%B2%98"
   };
 
   const sectionTitle = "text-[11px] tracking-[0.35em] uppercase text-neutral-500 mb-3";
@@ -93,15 +92,14 @@ export default function MobileWeddingInvitation() {
           <div className="rounded-2xl bg-neutral-100 p-5 text-center">
             <p className="text-sm font-medium">{wedding.venue}</p>
             <p className="mt-1 text-sm text-neutral-600">{wedding.address}</p>
-            <div className="mt-4 grid grid-cols-3 gap-2 text-sm">
-              <a href={wedding.mapLink} className="rounded-xl bg-neutral-900 px-3 py-3 text-white" target="_blank" rel="noreferrer">Google</a>
-              <a href={wedding.kakaoMapLink} className="rounded-xl bg-yellow-300 px-3 py-3 text-neutral-900" target="_blank" rel="noreferrer">Kakao</a>
-              <a href={wedding.naverMapLink} className="rounded-xl bg-green-500 px-3 py-3 text-white" target="_blank" rel="noreferrer">Naver</a>
+            <div className="mt-4 grid grid-cols-2 gap-2 text-sm">
+              <a href={wedding.kakaoMapLink} className="rounded-xl bg-yellow-300 px-3 py-3 text-neutral-900" target="_blank" rel="noreferrer">카카오맵</a>
+              <a href={wedding.naverMapLink} className="rounded-xl bg-green-500 px-3 py-3 text-white" target="_blank" rel="noreferrer">네이버지도</a>
             </div>
           </div>
           <div className="mt-4 space-y-3 text-sm text-neutral-600 leading-6">
             <p><span className="font-medium text-neutral-800">주소</span><br />서울 마포구 양화로 87</p>
-            <p><span className="font-medium text-neutral-800">안내</span><br />시그니처 호텔로 방문해 주세요</p>
+            <p><span className="font-medium text-neutral-800">안내</span><br />웨딩시그니처로 방문해 주세요</p>
           </div>
         </section>
 
