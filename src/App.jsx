@@ -3,7 +3,7 @@ export default function MobileWeddingInvitation() {
     groom: "한덕길",
     bride: "문지원",
     date: "2027년 10월 1일 금요일 오후 12시 30분",
-    venue: "시그니처 호텔222",
+    venue: "시그니처 호텔",
     address: "서울 마포구 양화로 87",
     message:
       "저희 두 사람이 사랑과 믿음으로 한 길을 걸어가려 합니다. 소중한 분들을 모시고 기쁨의 순간을 함께 나누고 싶습니다. 바쁘시더라도 오셔서 축복해 주시면 더없는 기쁨으로 간직하겠습니다. 감사합니다.",
